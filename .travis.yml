@@ -1,0 +1,17 @@
+# below line is for err : 'rakefile not found'
+language: generic 
+sudo : required
+services : 
+  - docker
+
+before_install : 
+  - docker build -t pradyumnarutvik/react-test -f ./client/Dockerfile.dev ./client
+
+scripts :
+  - docker run -e CI=true pradyumnarutvik/react-test npm run test
+
+after_success :
+  - docker build -t pradyumnarutvik/multi-client ./client
+  - docker build -t pradyumnarutvik/multi-nginx ./nginx
+  - docker build -t pradyumnarutvik/multi-server ./server
+  - docker build -t pradyumnarutvik/multi-worker ./worker
