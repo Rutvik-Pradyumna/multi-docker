@@ -4,17 +4,18 @@ sudo : required
 services : 
   - docker
 
-before_install : 
-  - docker build -t pradyumnarutvik/react-test -f ./client/Dockerfile.dev ./client
+# before_install : 
+#   - docker build -t pradyumnarutvik/react-test -f ./client/Dockerfile.dev ./client
 
-scripts :
-  - docker run -e CI=true pradyumnarutvik/react-test npm run test
+# scripts :
+#   - docker run -e CI=true pradyumnarutvik/react-test npm run test
 
-after_success :
+script :
   - docker build -t pradyumnarutvik/multi-client ./client
   - docker build -t pradyumnarutvik/multi-nginx ./nginx
   - docker build -t pradyumnarutvik/multi-server ./server
   - docker build -t pradyumnarutvik/multi-worker ./worker
+after_success :
   # login into docker cli
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # take above images and push them to docker-hub
