@@ -5,7 +5,7 @@ USER node
 # RUN mkdir -p /app
 WORKDIR '/app'
 COPY --chown=node:node ./package.json ./
-RUN npm install
+RUN npm install -g npm@latest
 COPY --chown=node:node ./ ./
 
 CMD ["npm","start"]

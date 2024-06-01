@@ -15,3 +15,10 @@ after_success :
   - docker build -t pradyumnarutvik/multi-nginx ./nginx
   - docker build -t pradyumnarutvik/multi-server ./server
   - docker build -t pradyumnarutvik/multi-worker ./worker
+  # login into docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # take above images and push them to docker-hub
+  - docker push pradyumnarutvik/multi-client
+  - docker push pradyumnarutvik/multi-nginx
+  - docker push pradyumnarutvik/multi-server
+  - docker push pradyumnarutvik/multi-worker
